@@ -1,1 +1,16 @@
-<p>cart works!</p>
+<main class="container w-full flex flex-col items-center justify-center py-8 mx-auto">
+  <div class="flex flex-col mx-auto items-center mt-8">
+    <lucide-angular [img]="bag" [size]="96" class="mb-2 my-icon"></lucide-angular>
+    <div class="flex flex-col items-center">
+      <h2 nz-typography>Seu carrinho está vazio</h2>
+      <span nz-typography nzType="secondary" class="text-lg p-0 mb-4"
+        >Adicione produtos ao carrinho para continuar comprando</span
+      >
+      <a routerLink="/" class="text-decoration-none">
+        <button class="py-3 px-6 bg-slate-900 rounded-lg text-white w-fit cursor-pointer">
+          <span class="text-white font-bold text-lg">Explorar Produtos</span>
+        </button>
+      </a>
+    </div>
+  </div>
+</main>

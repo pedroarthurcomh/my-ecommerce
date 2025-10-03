@@ -5,3 +5,7 @@ input::placeholder {
 a {
   color: inherit !important;
 }
+
+::ng-deep .ant-badge-count {
+  background: black;
+}
