@@ -22,7 +22,7 @@ import { iProduct } from 'src/app/interfaces/product-interface';
     NzRadioModule,
     NzGridModule,
     CommonModule,
-    AsyncPipe
+    AsyncPipe,
   ],
   templateUrl: './products.html',
   styleUrl: './products.scss',
@@ -45,7 +45,6 @@ export class Products implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.currentCategory);
     this.filterOptions = Object.values(eProductCategories) as eProductCategories[];
     this.products$ = this.apiService.getProductsByCategory(this.currentCategory);
   }

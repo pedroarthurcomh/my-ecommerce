@@ -67,6 +67,7 @@
             [nzSpan]="6"
             *ngFor="let product of products$ | async"
             [id]="product.id"
+            [routerLink]="['/products', product.id]"
           >
             <div class="group aspect-square">
               <div class="badge absolute left-8 z-40 discount w-full justify-between flex pr-16">
