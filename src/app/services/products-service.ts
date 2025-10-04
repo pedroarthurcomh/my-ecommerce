@@ -4,6 +4,10 @@ import { inject, Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ProductsService {
+
+  formatPrice(price: number): string {
+    return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+  }
     
   calculateDiscount(originalPrice: number, price: number): number {
     if (originalPrice <= price) return 0;

@@ -28,7 +28,7 @@
             <h1 nz-typography class="product-name">{{ product?.name }}</h1>
             <div class="flex items-center gap-4">
               <h2 nz-typography class="product-price">
-                {{ product!.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
+                {{ _productsService.formatPrice(product!.price) }}
               </h2>
               @if (product?.originalPrice !== product?.price) {
                 <span
@@ -36,10 +36,7 @@
                   nzType="secondary"
                   class="product-original-price text-lg line-through text-gray-400"
                   >{{
-                    product!.originalPrice.toLocaleString('pt-BR', {
-                      style: 'currency',
-                      currency: 'BRL',
-                    })
+                    _productsService.formatPrice(product!.originalPrice)
                   }}</span
                 >
                 <div class="badge flex items-center justify-center">

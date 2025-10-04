@@ -107,9 +107,9 @@
               </p>
               <h4 nz-typography class="text-nowrap" id="productTitle">{{ product.name }}</h4>
               <div class="flex gap-2 items-baseline">
-                <h4 nz-typography class="text-nowrap" id="currentPrice">
+                <h4 nz-typography class="text-nowrap font-bold" id="currentPrice">
                   {{
-                    product.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+                     _productsService.formatPrice(product!.price)
                   }}
                 </h4>
                 <span
@@ -119,10 +119,7 @@
                   class="text-sm text-muted-foreground line-through text-nowrap tracking-tight"
                   id="originalPrice"
                   >{{
-                    product.originalPrice.toLocaleString('pt-BR', {
-                      style: 'currency',
-                      currency: 'BRL',
-                    })
+                    _productsService.formatPrice(product!.originalPrice)
                   }}</span
                 >
               </div>
