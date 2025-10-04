@@ -14,7 +14,7 @@
           <img
             nz-image
             [nzSrc]="product!.image_url"
-            [nzFallback]="fallback"
+            [nzFallback]="_productsService.imageFallback"
             [alt]="product?.name"
             class="h-full w-full object-cover"
           />

@@ -26,7 +26,7 @@
             <li *ngFor="let product of cartItems" [id]="product.id"
               class="product-cart-card flex gap-4 border-b border-gray-200 py-4">
               <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-muted">
-                <img nz-image [nzSrc]="product!.image_url" [nzFallback]="fallback" [alt]="product?.name"
+                <img nz-image [nzSrc]="product!.image_url" [nzFallback]="_productsService.imageFallback" [alt]="product?.name"
                   class="h-full w-full object-cover" />
               </div>
               <div class="w-full">
@@ -60,7 +60,7 @@
                   </div>
                   <!-- END QUANTITY INPUT -->
                   <span class="text-lg font-bold text-price">{{
-                    _productService.formatPrice(product.price)
+                    _productsService.formatPrice(product.price)
                     }}</span>
                 </div>
               </div>
@@ -135,6 +135,7 @@
               <input type="text" placeholder="Digite o cupom"
                 class="h-10 rounded-lg border-1 border-gray-200 outline-none py-3 px-4 placeholder:text-gray-400 w-full" />
               <button
+              (click)="insertCoupon('a')"
                 class="py-2 px-4 border border-gray-200 rounded-lg transition-all duration-200 hover:bg-gray-50 cursor-pointer">
                 <span class="font-semibold">Aplicar</span>
               </button>
@@ -163,6 +164,7 @@
                   <span class="text-gray-950 text-lg font-bold">R$ 114,90</span>
                 </div>
                 <button
+                (click)="completeOrder()"
                   class="py-3 px-4 bg-gray-800 rounded-lg transition-all duration-200 hover:bg-gray-950 cursor-pointer">
                   <span class="font-bold text-white">FINALIZAR COMPRA</span>
                 </button>

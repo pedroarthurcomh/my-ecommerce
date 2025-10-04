@@ -29,7 +29,7 @@ export class NotificationService {
   }
 
   warn(title: string, content?: string): void {
-    this.notification.create('warn', title, content || '', {
+    this.notification.create('warning', title, content || '', {
       nzPlacement: 'bottomRight',
       nzDuration: 3000,
     });
