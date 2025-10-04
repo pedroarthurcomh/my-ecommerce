@@ -1,5 +1,5 @@
 <main class="container-fluid flex flex-col items-center justify-center">
-  <section class="hero-container h-[400px] lg:h-[500px] bg-slate-300 w-full flex items-center">
+  <section class="hero-container h-[400px] lg:h-[500px] bg-gray-300 w-full flex items-center">
     <div class="w-full mx-auto max-w-4/6 py-8">
       <p class="mb-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary">
         NOVA COLEÇÃO
@@ -18,7 +18,7 @@
       <div class="flex gap-6 mt-4">
         <a routerLink="/" class="text-decoration-none">
           <button
-            class="group py-2 px-6 bg-gray-700 rounded-lg text-white w-fit cursor-pointer mt-4 flex gap-2 items-center transition-all duration-300 hover:bg-gray-800"
+            class="group py-2 px-6 bg-gray-800 rounded-lg text-white w-fit cursor-pointer mt-4 flex gap-2 items-center transition-all duration-300 hover:bg-gray-950"
           >
             <span class="text-white font-bold text-lg">Explorar Coleção</span>
             <lucide-angular
@@ -61,13 +61,16 @@
 
       <div class="my-8 w-full mb-12">
         <div nz-row class="w-full" [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+
+          <!-- PRODUCTS LIST -->
+
           <div
             nz-col
             class="group gutter-row product-card p-4 rounded-lg cursor-pointer"
             [nzSpan]="6"
             *ngFor="let product of products$ | async"
             [id]="product.id"
-            [routerLink]="['/products', product.id]"
+            [routerLink]="['/product', product.id]"
           >
             <div class="group aspect-square">
               <div
@@ -76,7 +79,7 @@
                 @if (product.price !== product.originalPrice) {
                   <span
                     class="flex items-center justify-center h-6 px-3 rounded-xl bg-red-500 text-white font-bold"
-                    >- {{calculateDiscount(product.originalPrice, product.price)}}%</span
+                    >- {{this._productsService.calculateDiscount(product.originalPrice, product.price)}}%</span
                   >
                 }
                 <span
@@ -87,7 +90,7 @@
               </div>
               <img
                 [src]="product.image_url"
-                alt="Camiseta Clássica E-Commerce"
+                [alt]="product.name"
                 class="relative h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 mb-4"
               />
               <!-- <button class="absolute bottom-28 w-full left-1/2 transform -translate-x-1/2 bg-gray-900 py-2 px-4 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2">
@@ -124,6 +127,8 @@
               </div>
             </div>
           </div>
+
+          <!-- END PRODUCTS LIST -->
         </div>
       </div>
     </div>

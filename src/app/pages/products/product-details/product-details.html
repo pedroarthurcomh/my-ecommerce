@@ -1,1 +1,149 @@
-<p>product-details works!</p>
+<main class="container-fluid flex flex-col items-center justify-center">
+  <section class="h-full w-full flex items-center">
+    <div class="flex flex-col max-w-4/6 w-full flex-col gap-4 my-8 mx-auto">
+      <div class="breadcrumb">
+        <nz-breadcrumb>
+          <nz-breadcrumb-item><a [routerLink]="['/']">Home</a></nz-breadcrumb-item>
+          <nz-breadcrumb-item>{{ ProductCategoryLabels[product!.category] }}</nz-breadcrumb-item>
+          <nz-breadcrumb-item>{{ product?.name }}</nz-breadcrumb-item>
+        </nz-breadcrumb>
+      </div>
+
+      <div class="flex flex-col md:flex-row w-full gap-8">
+        <div class="product-image md:max-w-[50%] w-full aspect-square">
+          <img
+            nz-image
+            [nzSrc]="product!.image_url"
+            [nzFallback]="fallback"
+            [alt]="product?.name"
+            class="h-full w-full object-cover"
+          />
+        </div>
+
+        <div class="product-info md:max-w-[50%] w-full">
+          <div>
+            <span class="mb-2 text-sm font-semibold uppercase tracking-wider text-gray-400">{{
+              ProductCategoryLabels[product!.category]
+            }}</span>
+            <h1 nz-typography>{{ product?.name }}</h1>
+            <div class="flex gap-4">
+              <h3 nz-typography class="product-price">
+                {{ product!.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
+              </h3>
+              @if (product?.originalPrice !== product?.price) {
+                <span
+                  nz-typography
+                  nzType="secondary"
+                  class="product-original-price text-lg line-through text-gray-400"
+                  >{{
+                    product!.originalPrice.toLocaleString('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    })
+                  }}</span
+                >
+                <div class="badge flex items-center justify-center">
+                  <span
+                    class="flex items-center justify-center h-6 px-3 rounded-xl bg-red-500 text-white font-bold"
+                    >-
+                    {{
+                      _productsService.calculateDiscount(product!.originalPrice, product!.price)
+                    }}% OFF</span
+                  >
+                </div>
+              }
+            </div>
+
+            <div class="flex flex-col">
+              <label class="my-2 font-bold">Tamanho</label>
+              <nz-radio-group [(ngModel)]="size" nzSize="large">
+                <label nz-radio-button nzValue="P">P</label>
+                <label nz-radio-button nzValue="M">M</label>
+                <label nz-radio-button nzValue="G">G</label>
+                <label nz-radio-button nzValue="GG">GG</label>
+              </nz-radio-group>
+            </div>
+
+            <div class="flex flex-col pt-6">
+              <label class="my-2 font-bold">Cor</label>
+              <div class="input-group flex gap-4">
+                <div
+                  *ngFor="let color of product?.colors"
+                  [style]="{ 'background-color': color }"
+                  class="h-10 w-10 rounded-full border-2 transition-all border-border hover:border-primary cursor-pointer ring-2 ring-primary ring-offset-2"
+                ></div>
+              </div>
+            </div>
+
+            <div class="flex flex-col pt-6">
+              <label class="my-2 font-bold">Quantidade</label>
+              <div class="flex items-center gap-4">
+                <div class="flex items-center rounded-lg border border-gray-300">
+                  <button
+                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-minus h-4 w-4"
+                    >
+                      <path d="M5 12h14"></path>
+                    </svg></button
+                  ><span class="w-12 text-center font-semibold">1</span>
+                  <button
+                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-plus h-4 w-4"
+                    >
+                      <path d="M5 12h14"></path>
+                      <path d="M12 5v14"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col pt-6">
+              <button
+                class="flex justify-center items-center w-full py-3 bg-gray-600 rounded-lg gap-4 cursor-pointer hover:bg-gray-950 transition-all duration-200"
+              >
+                <lucide-angular
+                  [img]="shoppingCart"
+                  [size]="18"
+                  class="text-white transition-transform group-hover:translate-x-1"
+                ></lucide-angular>
+                <span class="text-white font-bold text-lg">ADICIONAR AO CARRINHO</span>
+              </button>
+            </div>
+
+            <nz-divider></nz-divider>
+
+            <div class="product-description">
+              <span class="text-lg font-bold">Descrição</span>
+              <p class="text-gray-500 text-base pt-2">
+                {{ product?.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

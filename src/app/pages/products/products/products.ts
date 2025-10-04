@@ -11,6 +11,7 @@ import { eProductCategories, ProductCategoryLabels } from 'src/app/enums/product
 import { ApiService } from 'src/app/services/api-service';
 import { Observable } from 'rxjs';
 import { iProduct } from 'src/app/interfaces/product-interface';
+import { ProductsService } from 'src/app/services/products-service';
 
 @Component({
   selector: 'app-products',
@@ -37,22 +38,16 @@ export class Products implements OnInit {
   public ProductCategoryLabels = ProductCategoryLabels;
   public filterOptions: eProductCategories[] = [];
 
-  private apiService = inject(ApiService);
+  private _apiService = inject(ApiService);
+  _productsService = inject(ProductsService);
 
   ngOnInit(): void {
     this.filterOptions = Object.values(eProductCategories) as eProductCategories[];
-    this.products$ = this.apiService.getProductsByCategory(this.currentCategory);
+    this.products$ = this._apiService.getProductsByCategory(this.currentCategory);
   }
 
   handleCategoryChange(category: eProductCategories): void {
     this.currentCategory = category;
     console.log(this.currentCategory);
-  }
-
-  calculateDiscount(originalPrice: number, price: number): number {
-    if (originalPrice <= price) return 0;
-
-    const discount = ((originalPrice - price) / originalPrice) * 100;
-    return Math.round(discount);
   }
 }
