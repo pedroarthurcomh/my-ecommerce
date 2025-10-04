@@ -83,6 +83,7 @@
                   >
                 }
                 <span
+                (click)="$event.stopPropagation(); addToFavorites(product)"
                   class="w-10 h-10 rounded-full bg-gray-600 hidden group-hover:flex items-center justify-center transition-all duration-200 hover:bg-gray-950"
                 >
                   <lucide-angular [img]="heart" [size]="16" class="text-white"></lucide-angular>

@@ -12,6 +12,7 @@ import { ApiService } from 'src/app/services/api-service';
 import { Observable } from 'rxjs';
 import { iProduct } from 'src/app/interfaces/product-interface';
 import { ProductsService } from 'src/app/services/products-service';
+import { NotificationService } from 'src/app/services/notification-service';
 
 @Component({
   selector: 'app-products',
@@ -40,6 +41,7 @@ export class Products implements OnInit {
 
   private _apiService = inject(ApiService);
   _productsService = inject(ProductsService);
+  _notificationService = inject(NotificationService);
 
   ngOnInit(): void {
     this.filterOptions = Object.values(eProductCategories) as eProductCategories[];
@@ -49,5 +51,10 @@ export class Products implements OnInit {
   handleCategoryChange(category: eProductCategories): void {
     this.currentCategory = category;
     console.log(this.currentCategory);
+  }
+
+  addToFavorites(product: iProduct): void {
+    //TODO: add product to Favorites List
+    this._notificationService.success('Adicionado aos favoritos!');
   }
 }
