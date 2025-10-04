@@ -1,0 +1,67 @@
+h1.hero-title {
+  font-size: 3.75rem;
+  line-height: 90%;
+  margin-bottom: 0.8rem;
+}
+
+span.hero-description {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+span {
+  font-size: 1.1rem;
+}
+
+div.headline {
+  h2 {
+    margin-bottom: 4px;
+  }
+}
+
+.ant-radio-button-wrapper {
+  background-color: #fff !important;
+  color: #000 !important;
+  border-color: #ccc !important;
+  border-radius: 8px !important;
+  margin-right: 12px !important;
+
+  &:last-child {
+    margin-right: 0 !important;
+  }
+
+  &:hover {
+    color: #000 !important;
+  }
+
+  &::before {
+    display: none !important;
+  }
+
+  &.ant-radio-button-wrapper-checked {
+    background-color: #000000d9 !important;
+    color: white !important;
+    border-color: #000000d9 !important;
+    font-weight: 600 !important;
+  }
+}
+
+div.product-card {
+
+  div.discount{
+    span {
+      font-size: 0.75rem;
+    }
+  }
+
+  h4#productTitle {
+    margin-bottom: 4px;
+    margin-top: -6px;
+    font-size: 1.125rem;
+  }
+
+  span#originalPrice {
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+}

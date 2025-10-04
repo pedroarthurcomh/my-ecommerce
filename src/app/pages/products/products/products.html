@@ -1,0 +1,126 @@
+<main class="container-fluid flex flex-col items-center justify-center">
+  <section class="hero-container h-[400px] lg:h-[500px] bg-slate-300 w-full flex items-center">
+    <div class="w-full mx-auto max-w-4/6 py-8">
+      <p class="mb-4 inline-block text-sm font-semibold uppercase tracking-wider text-primary">
+        NOVA COLEÇÃO
+      </p>
+      <h1
+        nz-typography
+        class="hero-title mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl"
+      >
+        Descubra Seu Estilo <br />Com a E-commerce
+      </h1>
+      <span nz-typography nzType="secondary" class="hero-description"
+        >Qualidade premium, design moderno e entrega rápida. Até 20% OFF <br />na primeira
+        compra.</span
+      >
+
+      <div class="flex gap-6 mt-4">
+        <a routerLink="/" class="text-decoration-none">
+          <button
+            class="group py-2 px-6 bg-gray-700 rounded-lg text-white w-fit cursor-pointer mt-4 flex gap-2 items-center transition-all duration-300 hover:bg-gray-800"
+          >
+            <span class="text-white font-bold text-lg">Explorar Coleção</span>
+            <lucide-angular
+              [img]="moveRight"
+              [size]="16"
+              class="my-icon text-white transition-transform group-hover:translate-x-1"
+            ></lucide-angular>
+          </button>
+        </a>
+        <a routerLink="/" class="text-decoration-none">
+          <button
+            class="group py-2 px-6 bg-white rounded-lg text-white w-fit cursor-pointer mt-4 flex gap-2 items-center transition-all duration-200 hover:bg-gray-100"
+          >
+            <span class="text-gray-700 font-bold text-lg">Ver Ofertas</span>
+          </button>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white w-full py-4 mt-8">
+    <div class="max-w-4/6 mx-auto flex flex-col gap-2">
+      <div class="headline">
+        <h2 nz-typography>Nossos Produtos</h2>
+        <span nz-typography nzType="secondary"
+          >Explore nossa coleção exclusiva de produtos premium</span
+        >
+      </div>
+      <div class="category-filter mt-4">
+        <nz-radio-group [(ngModel)]="currentCategory">
+          <label
+            (click)="handleCategoryChange(category)"
+            *ngFor="let category of filterOptions"
+            nz-radio-button
+            [nzValue]="ProductCategoryLabels[category]"
+            >{{ ProductCategoryLabels[category] }}</label
+          >
+        </nz-radio-group>
+      </div>
+
+      <div class="my-8 w-full mb-32">
+        <div nz-row class="w-full" [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+          <div
+            nz-col
+            class="group gutter-row product-card p-4 rounded-lg cursor-pointer"
+            [nzSpan]="6"
+            *ngFor="let product of products$ | async"
+            [id]="product.id"
+          >
+            <div class="group aspect-square">
+              <div class="badge absolute left-8 z-40 discount w-full justify-between flex pr-16">
+                <span
+                  class="flex items-center justify-center h-6 px-3 rounded-xl bg-red-500 text-white font-bold"
+                  >-31%</span
+                >
+                <span
+                  class="w-10 h-10 rounded-full bg-gray-600 hidden group-hover:flex items-center justify-center transition-all duration-200 hover:bg-gray-950"
+                >
+                  <lucide-angular [img]="heart" [size]="16" class="text-white"></lucide-angular>
+                </span>
+              </div>
+              <img
+                [src]="product.image_url"
+                alt="Camiseta Clássica E-Commerce"
+                class="relative h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 mb-4"
+              />
+              <!-- <button class="absolute bottom-28 w-full left-1/2 transform -translate-x-1/2 bg-gray-900 py-2 px-4 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2">
+                <span class="text-white font-bold text-sm">
+                  Comprar rápido
+                </span>
+              </button> -->
+            </div>
+
+            <div class="product-info w-full mt-8">
+              <p class="text-xs font-normal text-gray-400 tracking-wider m-0 p-0">
+                {{ ProductCategoryLabels[product.category].toUpperCase() }}
+              </p>
+              <h4 nz-typography class="text-nowrap" id="productTitle">{{ product.name }}</h4>
+              <div class="flex gap-2 items-baseline">
+                <h4 nz-typography class="text-nowrap" id="currentPrice">
+                  {{
+                    product.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+                  }}
+                </h4>
+                <span
+                  *ngIf="product.originalPrice !== product.price"
+                  nz-typography
+                  nzType="secondary"
+                  class="text-sm text-muted-foreground line-through text-nowrap tracking-tight"
+                  id="originalPrice"
+                  >{{
+                    product.originalPrice.toLocaleString('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    })
+                  }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
