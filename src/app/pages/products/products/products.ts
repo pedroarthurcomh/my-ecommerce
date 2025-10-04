@@ -50,7 +50,6 @@ export class Products implements OnInit {
 
   handleCategoryChange(category: eProductCategories): void {
     this.currentCategory = category;
-    console.log(this.currentCategory);
   }
 
   addToFavorites(product: iProduct): void {
