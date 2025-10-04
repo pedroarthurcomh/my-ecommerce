@@ -1,0 +1,33 @@
+input::placeholder {
+  color: oklch(55.1% 0.027 264.364);
+}
+
+a {
+  color: inherit !important;
+}
+
+::ng-deep .ant-badge-count {
+  background: black;
+}
+
+
+footer {
+
+  h4 {
+    margin: 0;
+  }
+
+  ul {
+    gap: 8px;
+  }
+
+  ul a {
+    text-decoration: none;
+    color: gray !important;
+    transition: all 0.3s ease;
+  }
+
+  ul a:hover {
+      color: black !important;
+  }
+}
