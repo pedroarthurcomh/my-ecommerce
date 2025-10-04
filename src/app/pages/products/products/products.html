@@ -70,11 +70,15 @@
             [routerLink]="['/products', product.id]"
           >
             <div class="group aspect-square">
-              <div class="badge absolute left-8 z-40 discount w-full justify-between flex pr-16">
-                <span
-                  class="flex items-center justify-center h-6 px-3 rounded-xl bg-red-500 text-white font-bold"
-                  >-31%</span
-                >
+              <div
+                class="badge absolute left-8 top-8 z-40 discount w-full justify-between flex pr-16"
+              >
+                @if (product.price !== product.originalPrice) {
+                  <span
+                    class="flex items-center justify-center h-6 px-3 rounded-xl bg-red-500 text-white font-bold"
+                    >- {{calculateDiscount(product.originalPrice, product.price)}}%</span
+                  >
+                }
                 <span
                   class="w-10 h-10 rounded-full bg-gray-600 hidden group-hover:flex items-center justify-center transition-all duration-200 hover:bg-gray-950"
                 >

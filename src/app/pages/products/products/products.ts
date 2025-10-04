@@ -39,13 +39,20 @@ export class Products implements OnInit {
 
   private apiService = inject(ApiService);
 
+  ngOnInit(): void {
+    this.filterOptions = Object.values(eProductCategories) as eProductCategories[];
+    this.products$ = this.apiService.getProductsByCategory(this.currentCategory);
+  }
+
   handleCategoryChange(category: eProductCategories): void {
     this.currentCategory = category;
     console.log(this.currentCategory);
   }
 
-  ngOnInit(): void {
-    this.filterOptions = Object.values(eProductCategories) as eProductCategories[];
-    this.products$ = this.apiService.getProductsByCategory(this.currentCategory);
+  calculateDiscount(originalPrice: number, price: number): number {
+    if (originalPrice <= price) return 0;
+
+    const discount = ((originalPrice - price) / originalPrice) * 100;
+    return Math.round(discount);
   }
 }
