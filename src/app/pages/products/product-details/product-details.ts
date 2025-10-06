@@ -6,7 +6,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzTypographyComponent } from 'ng-zorro-antd/typography';
 import { NzImageModule } from 'ng-zorro-antd/image';
-import { LucideAngularModule, ShoppingCart } from 'lucide-angular';
+import { LucideAngularModule, ShoppingCart, Plus, Minus } from 'lucide-angular';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { iProduct } from 'src/app/interfaces/product-interface';
 import { ProductCategoryLabels } from 'src/app/enums/product-categories-enums';
@@ -32,6 +32,9 @@ import { NotificationService } from 'src/app/services/notification-service';
 })
 export class ProductDetails implements OnInit {
   readonly shoppingCart = ShoppingCart;
+  readonly plus = Plus;
+  readonly minus = Minus;
+
   route = inject(ActivatedRoute);
   _productsService = inject(ProductsService);
   _notificationService = inject(NotificationService);
