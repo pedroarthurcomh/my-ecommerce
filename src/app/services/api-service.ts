@@ -1,21 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { eProductCategories } from '../enums/product-categories-enums';
 import { iProduct } from '../interfaces/product-interface';
+import { eProductCategories } from '../enums/product-categories-enums';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
   private readonly httpClient = inject(HttpClient);
+  private readonly API_URL: string = environment.API_URL;
 
-  getProductsByCategory(category: eProductCategories): Observable<iProduct[]> {
-    return this.httpClient.get<iProduct[]>('http://localhost:3000/products');
+  getProductsByCategory(category?: eProductCategories): Observable<iProduct[]> {
+    if (category === 'all') return this.httpClient.get<iProduct[]>(`${this.API_URL}/products`);
+
+    return this.httpClient.get<iProduct[]>(`${this.API_URL}/products?category=${category}`);
   }
 
   getProductById(id: string): Observable<iProduct> {
-    return this.httpClient.get<iProduct>(`http://localhost:3000/products/${id}`);
+    return this.httpClient.get<iProduct>(`${this.API_URL}/products/${id}`);
   }
-  
 }
