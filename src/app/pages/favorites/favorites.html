@@ -1,0 +1,19 @@
+<main class="container w-full flex flex-col items-center justify-center py-8 mx-auto min-h-[calc(100vh-406px)]">
+  @if (cartItems.length <= 0) {
+    <!-- CARRINHO VAZIO -->
+    <div class="flex flex-col mx-auto items-center mt-8 p-4 sm:p-0">
+      <lucide-angular [img]="heart" [size]="96" class="mb-2 my-icon"></lucide-angular>
+      <div class="flex flex-col items-center">
+        <h2 nz-typography class="text-no-wrap text-center">Sua Lista de Favoritos</h2>
+        <span nz-typography nzType="secondary" class="text-lg p-0 mb-4 text-center"
+          >Salve seus itens favoritos aqui para não perdê-los de vista.</span
+        >
+        <a routerLink="/" class="text-decoration-none">
+          <button class="py-3 px-6 bg-slate-900 rounded-lg text-white w-fit cursor-pointer">
+            <span class="text-white font-bold text-lg">Explorar Produtos</span>
+          </button>
+        </a>
+      </div>
+    </div>
+  }
+</main>

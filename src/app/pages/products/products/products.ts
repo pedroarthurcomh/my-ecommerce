@@ -50,6 +50,7 @@ export class Products implements OnInit {
 
   handleCategoryChange(category: eProductCategories): void {
     this.currentCategory = category;
+    this.products$ = this._apiService.getProductsByCategory(this.currentCategory);
   }
 
   addToFavorites(product: iProduct): void {

@@ -36,35 +36,35 @@ export class Cart {
   _router = inject(Router)
 
   cartItems: iProduct[] = [
-    {
-      id: 'cbd6d9c9-8403-4c69-989f-42586118140b',
-      name: 'Camisa Clássica E-commerce',
-      description:
-        'Camiseta de algodão premium com design exclusivo Vortex. Perfeita para o dia a dia, combina conforto e estilo. Material 100% algodão egípcio, respirável e durável.',
-      image_url:
-        'https://preview--vortex-store-ui.lovable.app/assets/product-tshirt-1-Bn3P9mCJ.jpg',
-      category: 't-shirts',
-      sizes: ['P', 'M', 'G', 'GG'],
-      colors: ['#FFFFFF', '#000000', '#808080'],
-      price: 89.9,
-      originalPrice: 129.9,
-      created_at: '2023-10-03',
-      sales: 451,
-    },
-    {
-      id: 'b881c2a1-0334-4c5e-b53f-228788f82bc6',
-      name: 'Caneca Premium E-commerce',
-      description:
-        'Caneca de cerâmica premium com capacidade de 350ml. Design exclusivo e acabamento de alta qualidade.',
-      image_url: 'https://preview--vortex-store-ui.lovable.app/assets/product-mug-1-y7egaSer.jpg',
-      category: 'mugs',
-      sizes: ['P', 'M', 'G', 'GG'],
-      colors: ['#FFFFFF', '#000000', '#808080'],
-      price: 49.9,
-      originalPrice: 49.9,
-      created_at: '2023-10-02',
-      sales: 127,
-    },
+    // {
+    //   id: 'cbd6d9c9-8403-4c69-989f-42586118140b',
+    //   name: 'Camisa Clássica E-commerce',
+    //   description:
+    //     'Camiseta de algodão premium com design exclusivo Vortex. Perfeita para o dia a dia, combina conforto e estilo. Material 100% algodão egípcio, respirável e durável.',
+    //   image_url:
+    //     'https://preview--vortex-store-ui.lovable.app/assets/product-tshirt-1-Bn3P9mCJ.jpg',
+    //   category: 't-shirts',
+    //   sizes: ['P', 'M', 'G', 'GG'],
+    //   colors: ['#FFFFFF', '#000000', '#808080'],
+    //   price: 89.9,
+    //   originalPrice: 129.9,
+    //   created_at: '2023-10-03',
+    //   sales: 451,
+    // },
+    // {
+    //   id: 'b881c2a1-0334-4c5e-b53f-228788f82bc6',
+    //   name: 'Caneca Premium E-commerce',
+    //   description:
+    //     'Caneca de cerâmica premium com capacidade de 350ml. Design exclusivo e acabamento de alta qualidade.',
+    //   image_url: 'https://preview--vortex-store-ui.lovable.app/assets/product-mug-1-y7egaSer.jpg',
+    //   category: 'mugs',
+    //   sizes: ['P', 'M', 'G', 'GG'],
+    //   colors: ['#FFFFFF', '#000000', '#808080'],
+    //   price: 49.9,
+    //   originalPrice: 49.9,
+    //   created_at: '2023-10-02',
+    //   sales: 127,
+    // },
   ];
 
   insertCoupon(coupon: string) {
