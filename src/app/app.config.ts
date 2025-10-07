@@ -11,6 +11,7 @@ import { registerLocaleData } from '@angular/common';
 import pt from '@angular/common/locales/pt';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 registerLocaleData(pt);
 
@@ -28,5 +29,6 @@ export const appConfig: ApplicationConfig = {
     provideNzI18n(pt_BR),
     provideAnimationsAsync(),
     provideHttpClient(),
+    provideEnvironmentNgxMask()
   ],
 };

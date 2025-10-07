@@ -7,7 +7,7 @@ import { NzTypographyComponent } from 'ng-zorro-antd/typography';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { LucideAngularModule, MoveRight, Heart } from 'lucide-angular';
-import { eProductCategories, ProductCategoryLabels } from 'src/app/enums/product-categories-enums';
+import { eProductCategories, ProductCategoryLabels } from 'src/app/enums/product-categories-enum';
 import { ApiService } from 'src/app/services/api-service';
 import { Observable } from 'rxjs';
 import { iProduct } from 'src/app/interfaces/product-interface';

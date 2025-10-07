@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { iProduct } from '../interfaces/product-interface';
-import { eProductCategories } from '../enums/product-categories-enums';
+import { eProductCategories } from '../enums/product-categories-enum';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
