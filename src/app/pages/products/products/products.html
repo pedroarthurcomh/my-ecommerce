@@ -18,7 +18,7 @@
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 mt-4">
         <a class="text-decoration-none">
           <button
-          (click)="scrollToSection(collection)"
+            (click)="scrollToSection(collection)"
             class="group py-2 px-6 bg-gray-800 rounded-lg text-white w-full sm:w-fit cursor-pointer mt-4 flex gap-2 items-center transition-all duration-300 hover:bg-gray-950"
           >
             <span class="text-white font-bold text-lg">Explorar Coleção</span>
@@ -61,73 +61,18 @@
       </div>
 
       <div class="my-8 w-full mb-12 flex justify-center">
-        <div nz-row class="w-full flex justify-center" [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
-
-          <!-- PRODUCTS LIST -->
-
-          <div
-            nz-col
-            class="group gutter-row product-card p-4 rounded-lg cursor-pointer"
-            nzFlex="0 1 324px"
+        <div
+          class="grid w-full gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-stretch"
+        >
+          <me-product-card
             *ngFor="let product of products$ | async"
+            [product]="product"
             [id]="product.id"
             [routerLink]="['/product', product.id]"
-          >
-            <div class="group aspect-square">
-              <div
-                class="badge absolute left-8 top-8 z-40 discount w-full justify-between flex pr-16"
-              >
-                @if (product.price !== product.originalPrice) {
-                  <span
-                    class="flex items-center justify-center h-6 px-3 rounded-xl bg-red-400 text-white font-bold"
-                    >- {{this._productsService.calculateDiscount(product.originalPrice, product.price)}}%</span
-                  >
-                }
-                <span
-                (click)="$event.stopPropagation(); addToFavorites(product)"
-                  class="w-10 h-10 rounded-full bg-gray-600 hidden group-hover:flex items-center justify-center transition-all duration-200 hover:bg-gray-950"
-                >
-                  <lucide-angular [img]="heart" [size]="16" class="text-white"></lucide-angular>
-                </span>
-              </div>
-              <img
-                [src]="product.image_url"
-                [alt]="product.name"
-                class="relative h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 mb-4 rounded-lg"
-              />
-              <!-- <button class="absolute bottom-28 w-full left-1/2 transform -translate-x-1/2 bg-gray-900 py-2 px-4 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2">
-                <span class="text-white font-bold text-sm">
-                  Comprar rápido
-                </span>
-              </button> -->
-            </div>
-
-            <div class="product-info w-full mt-8">
-              <p class="text-xs font-normal text-gray-400 tracking-wider m-0 p-0">
-                {{ ProductCategoryLabels[product.category].toUpperCase() }}
-              </p>
-              <h4 nz-typography class="sm:text-nowrap" id="productTitle">{{ product.name }}</h4>
-              <div class="flex gap-2 items-baseline">
-                <h4 nz-typography class="sm:text-nowrap font-bold" id="currentPrice">
-                  {{
-                     _productsService.formatPrice(product!.price)
-                  }}
-                </h4>
-                <span
-                  *ngIf="product.originalPrice !== product.price"
-                  nz-typography
-                  nzType="secondary"
-                  class="text-sm text-muted-foreground line-through sm:text-nowrap tracking-tight"
-                  id="originalPrice"
-                  >{{
-                    _productsService.formatPrice(product!.originalPrice)
-                  }}</span
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- END PRODUCTS LIST -->
+            nz-col
+            nzFlex="0 1 324px"
+            class="w-min-[214px] w-full"
+          />
         </div>
       </div>
     </div>

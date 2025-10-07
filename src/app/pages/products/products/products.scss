@@ -46,27 +46,3 @@ div.headline {
     font-weight: 600 !important;
   }
 }
-
-div.product-card {
-
-  div.discount{
-    span {
-      font-size: 0.75rem;
-    }
-  }
-
-  h4#productTitle {
-    margin-bottom: 4px;
-    margin-top: -6px;
-    font-size: 1.125rem;
-  }
-
-  h4#currentPrice {
-    font-weight: 700 !important;
-  }
-
-  span#originalPrice {
-    font-size: 0.875rem;
-    font-weight: 400;
-  }
-}
