@@ -13,7 +13,8 @@ import { Observable } from 'rxjs';
 import { iProduct } from 'src/app/interfaces/product-interface';
 import { ProductsService } from 'src/app/services/products-service';
 import { NotificationService } from 'src/app/services/notification-service';
-import { ProductCard } from "@shared/components/product-card/product-card";
+import { ProductCard } from '@shared/components/product-card/product-card';
+import { FavoritesService } from 'src/app/services/favorites-service';
 
 @Component({
   selector: 'app-products',
@@ -26,8 +27,8 @@ import { ProductCard } from "@shared/components/product-card/product-card";
     NzGridModule,
     CommonModule,
     AsyncPipe,
-    ProductCard
-],
+    ProductCard,
+  ],
   templateUrl: './products.html',
   styleUrl: './products.scss',
 })
@@ -42,8 +43,11 @@ export class Products implements OnInit {
   public filterOptions: eProductCategories[] = [];
 
   private _apiService = inject(ApiService);
+  _favoritesService = inject(FavoritesService);
   _productsService = inject(ProductsService);
   _notificationService = inject(NotificationService);
+
+  isFavoriteChecker = this._favoritesService.isFavoriteComputed();
 
   ngOnInit(): void {
     this.filterOptions = Object.values(eProductCategories) as eProductCategories[];
@@ -55,15 +59,14 @@ export class Products implements OnInit {
     this.products$ = this._apiService.getProductsByCategory(this.currentCategory);
   }
 
-  addToFavorites(product: iProduct): void {
-    //TODO: add product to Favorites List
-    this._notificationService.success('Adicionado aos favoritos!');
-  }
-
   scrollToSection(element: HTMLElement): void {
     element.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
     });
+  }
+
+  isFavorite(id: string): boolean {
+    return this.isFavoriteChecker(id);
   }
 }

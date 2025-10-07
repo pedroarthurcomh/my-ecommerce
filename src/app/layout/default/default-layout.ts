@@ -17,6 +17,7 @@ import {
 } from 'lucide-angular';
 import { NzTypographyComponent } from 'ng-zorro-antd/typography';
 import { CartService } from 'src/app/services/cart-service';
+import { FavoritesService } from 'src/app/services/favorites-service';
 
 @Component({
   selector: 'app-default-layout',
@@ -43,6 +44,7 @@ export class DefaultLayout implements OnInit {
   readonly mail = Mail;
 
   _cartService = inject(CartService);
+  _favoritesService = inject(FavoritesService);
 
   public cartQuantity = computed(() => {
     return this._cartService._cartItems().length;
@@ -56,6 +58,7 @@ export class DefaultLayout implements OnInit {
 
   ngOnInit(): void {
     this.initiateLocalStorage();
+    this.initiateFavoritesStorage();
   }
 
   initiateLocalStorage() {
@@ -65,6 +68,16 @@ export class DefaultLayout implements OnInit {
       this._cartService._cartItems.set(JSON.parse(existedCart));
     } else {
       localStorage.setItem('cart', '[]');
+    }
+  }
+
+  initiateFavoritesStorage() {
+    const existedFavorites = localStorage.getItem('favorites');
+
+    if (existedFavorites) {
+      this._favoritesService._favoriteItems.set(JSON.parse(existedFavorites));
+    } else {
+      localStorage.setItem('favorites', '[]');
     }
   }
 }

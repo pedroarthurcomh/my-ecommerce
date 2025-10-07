@@ -1,18 +1,20 @@
 <div class="product-card group gutter-row p-4 rounded-lg cursor-pointer w-full min-w-[214px]">
-  <div class="group aspect-square">
-    <div class="badge absolute left-8 top-8 z-40 discount w-full justify-between flex pr-16">
-      @if (product.price !== product.originalPrice) {
-        <span
-          class="flex items-center justify-center h-6 px-3 rounded-xl bg-red-400 text-white font-bold"
-          >-
-          {{ this._productsService.calculateDiscount(product.originalPrice, product.price) }}%</span
-        >
-      }
+  <div class="group aspect-square relative">
+    <div class="badge absolute left-2 top-4 z-40 discount w-full justify-between flex pr-4">
+      <span
+        [class.opacity-0]="product.price === product.originalPrice"
+        class="flex items-center justify-center items-center h-6 px-3 rounded-xl bg-red-400 text-white font-bold"
+        >-
+        {{ this._productsService.calculateDiscount(product.originalPrice, product.price) }}%</span
+      >
       <span
         (click)="$event.stopPropagation(); addToFavorites(product)"
-        class="w-10 h-10 rounded-full bg-gray-600 hidden group-hover:flex items-center justify-center transition-all duration-200 hover:bg-gray-950"
-      >
-        <lucide-angular [img]="heart" [size]="16" class="text-white"></lucide-angular>
+        [class.hidden]="!isFavorite"
+        [class.group-hover:flex]="!isFavorite"
+        class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center transition-all duration-200 hover:bg-gray-950"
+        style="margin-top: -8px"
+        >
+        <lucide-angular [img]=" isFavorite? heartOff : heart" [size]="16" class="text-white"></lucide-angular>
       </span>
     </div>
     <img
