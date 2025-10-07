@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 import { iProduct } from 'src/app/interfaces/product-interface';
 import { ProductsService } from 'src/app/services/products-service';
 import { NotificationService } from 'src/app/services/notification-service';
+import { ProductCard } from "@shared/components/product-card/product-card";
 
 @Component({
   selector: 'app-products',
@@ -25,7 +26,8 @@ import { NotificationService } from 'src/app/services/notification-service';
     NzGridModule,
     CommonModule,
     AsyncPipe,
-  ],
+    ProductCard
+],
   templateUrl: './products.html',
   styleUrl: './products.scss',
 })
