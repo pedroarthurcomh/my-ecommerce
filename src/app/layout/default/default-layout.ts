@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
@@ -16,6 +16,7 @@ import {
   Mail,
 } from 'lucide-angular';
 import { NzTypographyComponent } from 'ng-zorro-antd/typography';
+import { CartService } from 'src/app/services/cart-service';
 
 @Component({
   selector: 'app-default-layout',
@@ -31,7 +32,7 @@ import { NzTypographyComponent } from 'ng-zorro-antd/typography';
   templateUrl: './default-layout.html',
   styleUrl: './default-layout.scss',
 })
-export class DefaultLayout {
+export class DefaultLayout implements OnInit {
   readonly search = Search;
   readonly moon = Moon;
   readonly sun = Sun;
@@ -41,9 +42,29 @@ export class DefaultLayout {
   readonly github = Github;
   readonly mail = Mail;
 
+  _cartService = inject(CartService);
+
+  public cartQuantity = computed(() => {
+    return this._cartService._cartItems().length;
+  });
+
   isDarkTheme = false;
 
   switchTheme(): void {
     this.isDarkTheme = !this.isDarkTheme;
+  }
+
+  ngOnInit(): void {
+    this.initiateLocalStorage();
+  }
+
+  initiateLocalStorage() {
+    const existedCart = localStorage.getItem('cart');
+
+    if (existedCart) {
+      this._cartService._cartItems.set(JSON.parse(existedCart));
+    } else {
+      localStorage.setItem('cart', '[]');
+    }
   }
 }

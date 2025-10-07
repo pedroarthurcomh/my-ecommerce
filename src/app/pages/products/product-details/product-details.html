@@ -51,10 +51,10 @@
             <div class="flex flex-col">
               <label class="my-2 font-bold">Tamanho</label>
               <nz-radio-group [(ngModel)]="size" nzSize="large">
-                <label nz-radio-button nzValue="P" (click)="changeSize('P')">P</label>
-                <label nz-radio-button nzValue="M" (click)="changeSize('M')">M</label>
-                <label nz-radio-button nzValue="G" (click)="changeSize('G')">G</label>
-                <label nz-radio-button nzValue="GG" (click)="changeSize('GG')">GG</label>
+                <label nz-radio-button nzValue="P" (click)="selectSize('P')">P</label>
+                <label nz-radio-button nzValue="M" (click)="selectSize('M')">M</label>
+                <label nz-radio-button nzValue="G" (click)="selectSize('G')">G</label>
+                <label nz-radio-button nzValue="GG" (click)="selectSize('GG')">GG</label>
               </nz-radio-group>
             </div>
 
@@ -62,9 +62,13 @@
               <label class="my-2 font-bold">Cor</label>
               <div class="input-group flex gap-4">
                 <div
-                  *ngFor="let color of product?.colors"
+                *ngFor="let color of product?.colors"
+                (click)="selectColor(color)"
                   [style]="{ 'background-color': color }"
-                  class="h-10 w-10 rounded-full border-2 transition-all border-border hover:border-primary cursor-pointer ring-2 ring-primary ring-offset-2"
+                  [ngClass]="{
+                    'ring-2 ring-primary ring-offset-2': isSelectedColorEquals(color, currentColor),
+                  }"
+                  class="h-10 w-10 rounded-full border border-gray-300 transition-all  cursor-pointer"
                 ></div>
               </div>
             </div>
@@ -75,17 +79,19 @@
               <div class="flex items-center gap-4">
                 <div class="flex items-center rounded-lg border border-gray-200">
                   <button
-                    class="inline-flex items-center justify-center  h-10 w-10  gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-100 hover:text-accent-foreground cursor-pointer"
-                    disabled=""
+                    (click)="updateQuantity('-')"
+                    class="inline-flex items-center justify-center h-10 w-10 gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-100 hover:text-accent-foreground cursor-pointer"
+                    [disabled]="quantity === 1"
                   >
                     <lucide-angular
                       [img]="minus"
                       [size]="16"
                       class="text-black"
                     ></lucide-angular></button
-                  ><span class="w-10 text-center text-sm font-medium">1</span>
+                  ><span class="w-10 text-center text-sm font-medium">{{ quantity }}</span>
                   <button
-                    class="inline-flex items-center justify-center  h-10 w-10  gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-100 hover:text-accent-foreground cursor-pointer"
+                    (click)="updateQuantity('+')"
+                    class="inline-flex items-center justify-center h-10 w-10 gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-100 hover:text-accent-foreground cursor-pointer"
                   >
                     <lucide-angular [img]="plus" [size]="16" class="text-black"></lucide-angular>
                   </button>

@@ -41,7 +41,7 @@
           ></lucide-angular>
         </a>
       </button>
-      <nz-badge [nzCount]="1" [nzOffset]="[-2, 8]" nzSize="default">
+      <nz-badge [nzCount]="cartQuantity()" [nzOffset]="[-2, 8]" nzSize="default">
         <a [routerLink]="'cart'">
           <button
             class="inline-block group py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100 transition vertical-align-middle"

@@ -1,14 +1,16 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { LucideAngularModule, ShoppingBag, Minus, Plus, Trash2, Truck, Tag } from 'lucide-angular';
 import { Router, RouterLink } from '@angular/router';
-import { iProduct } from 'src/app/interfaces/product-interface';
 import { CommonModule } from '@angular/common';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { ProductsService } from 'src/app/services/products-service';
 import { NotificationService } from 'src/app/services/notification-service';
+import { CartService } from 'src/app/services/cart-service';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-cart',
@@ -19,6 +21,8 @@ import { NotificationService } from 'src/app/services/notification-service';
     RouterLink,
     CommonModule,
     NzImageModule,
+    ReactiveFormsModule,
+    NgxMaskDirective,
   ],
   templateUrl: './cart.html',
   styleUrl: './cart.scss',
@@ -32,49 +36,75 @@ export class Cart {
   readonly tag = Tag;
 
   _productsService = inject(ProductsService);
-  _notificationService = inject(NotificationService)
-  _router = inject(Router)
+  _cartService = inject(CartService);
+  _notificationService = inject(NotificationService);
+  _router = inject(Router);
 
-  cartItems: iProduct[] = [
-    // {
-    //   id: 'cbd6d9c9-8403-4c69-989f-42586118140b',
-    //   name: 'Camisa Clássica E-commerce',
-    //   description:
-    //     'Camiseta de algodão premium com design exclusivo Vortex. Perfeita para o dia a dia, combina conforto e estilo. Material 100% algodão egípcio, respirável e durável.',
-    //   image_url:
-    //     'https://preview--vortex-store-ui.lovable.app/assets/product-tshirt-1-Bn3P9mCJ.jpg',
-    //   category: 't-shirts',
-    //   sizes: ['P', 'M', 'G', 'GG'],
-    //   colors: ['#FFFFFF', '#000000', '#808080'],
-    //   price: 89.9,
-    //   originalPrice: 129.9,
-    //   created_at: '2023-10-03',
-    //   sales: 451,
-    // },
-    // {
-    //   id: 'b881c2a1-0334-4c5e-b53f-228788f82bc6',
-    //   name: 'Caneca Premium E-commerce',
-    //   description:
-    //     'Caneca de cerâmica premium com capacidade de 350ml. Design exclusivo e acabamento de alta qualidade.',
-    //   image_url: 'https://preview--vortex-store-ui.lovable.app/assets/product-mug-1-y7egaSer.jpg',
-    //   category: 'mugs',
-    //   sizes: ['P', 'M', 'G', 'GG'],
-    //   colors: ['#FFFFFF', '#000000', '#808080'],
-    //   price: 49.9,
-    //   originalPrice: 49.9,
-    //   created_at: '2023-10-02',
-    //   sales: 127,
-    // },
-  ];
+  couponForm: FormGroup;
+  shippingForm: FormGroup;
 
-  insertCoupon(coupon: string) {
-    if(!coupon) return
+  constructor(private fb: FormBuilder) {
+    this.couponForm = this.fb.group({
+      coupon: new FormControl<string>(''),
+    });
 
-    this._notificationService.warn('Cupom inválido!')
+    this.shippingForm = this.fb.group({
+      shippingOption: this.fb.group({
+        name: new FormControl<string>('sedex'),
+        value: new FormControl<number>(25),
+      }),
+    });
+  }
+
+  cartItems = computed(() => {
+    return this._cartService._cartItems();
+  });
+
+  clearCart() {
+    this._cartService.clearCart();
+  }
+
+  updateShippingOption(option: 'sedex' | 'pac' | 'express') {
+    this.shippingForm.patchValue({
+      shippingOption: {
+        name: `${option}`,
+        value: option === 'sedex' ? 25 : option === 'pac' ? 15 : option === 'express' ? 35 : 0,
+      },
+    });
+  }
+
+  insertCoupon() {
+    let coupon = this.couponForm.get('coupon')?.value;
+    if (!coupon) return;
+
+    this.couponForm.patchValue({ coupon: '' });
+    this._notificationService.warn('Cupom inválido!');
+  }
+
+  calculateSubTotalOrder(): number {
+    let storagedProducts = localStorage.getItem('cart') || '[]';
+    let localProducts = JSON.parse(storagedProducts);
+    let cartPrice = 0;
+
+    for (let item of localProducts) {
+      cartPrice = cartPrice + item.price * item.quantity;
+    }
+    return cartPrice;
+  }
+
+  calculateTotalOrder(): number {
+    const shippingValue = this.shippingForm.get('shippingOption.value')?.value;
+    const subtotal = this.calculateSubTotalOrder();
+    return subtotal + shippingValue;
   }
 
   completeOrder() {
-    this._notificationService.success('Pedido finalizado com sucesso!')
-    this._router.navigate(['/'])
+    this._notificationService.success('Pedido finalizado com sucesso!');
+    this._cartService.clearCart();
+    this._router.navigate(['/']);
+  }
+
+  formatCurrency(value: number): string {
+    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 }
