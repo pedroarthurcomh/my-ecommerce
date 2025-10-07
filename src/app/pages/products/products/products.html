@@ -16,8 +16,9 @@
       >
 
       <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 mt-4">
-        <a routerLink="/" class="text-decoration-none">
+        <a class="text-decoration-none">
           <button
+          (click)="scrollToSection(collection)"
             class="group py-2 px-6 bg-gray-800 rounded-lg text-white w-full sm:w-fit cursor-pointer mt-4 flex gap-2 items-center transition-all duration-300 hover:bg-gray-950"
           >
             <span class="text-white font-bold text-lg">Explorar Coleção</span>
@@ -28,11 +29,11 @@
             ></lucide-angular>
           </button>
         </a>
-        <a routerLink="/" class="text-decoration-none">
+        <a routerLink="/cart" class="text-decoration-none">
           <button
             class="group py-2 px-6 bg-white rounded-lg text-white w-full sm:w-fit cursor-pointer mt-4 flex gap-2 items-center transition-all duration-200 hover:bg-gray-100"
           >
-            <span class="text-gray-700 font-bold text-lg">Ver Ofertas</span>
+            <span class="text-gray-700 font-bold text-lg">Meu Carrinho</span>
           </button>
         </a>
       </div>
@@ -40,7 +41,7 @@
   </section>
 
   <section class="bg-white w-full py-4 mt-8">
-    <div class="max-w-4/6 mx-auto flex flex-col gap-2">
+    <div #collection class="max-w-4/6 mx-auto flex flex-col gap-2">
       <div class="headline">
         <h2 nz-typography>Nossos Produtos</h2>
         <span nz-typography nzType="secondary"

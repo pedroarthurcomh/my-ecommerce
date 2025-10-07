@@ -57,4 +57,11 @@ export class Products implements OnInit {
     //TODO: add product to Favorites List
     this._notificationService.success('Adicionado aos favoritos!');
   }
+
+  scrollToSection(element: HTMLElement): void {
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
 }
