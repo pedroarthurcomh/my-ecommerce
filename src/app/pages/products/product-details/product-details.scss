@@ -25,6 +25,10 @@
   }
 }
 
+::ng-deep .ant-breadcrumb-separator {
+  color: #808080 !important;
+}
+
 h1.product-name {
   margin-bottom: 6px;
 }

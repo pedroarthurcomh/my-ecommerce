@@ -30,19 +30,19 @@
   </div>
 
   <div class="product-info w-full mt-8">
-    <p class="text-xs font-normal text-gray-400 tracking-wider m-0 p-0">
+    <p class="text-xs font-normal text-[#808080]! tracking-wider m-0 p-0">
       {{ ProductCategoryLabels[product.category].toUpperCase() }}
     </p>
-    <h4 nz-typography class="sm:text-nowrap" id="productTitle">{{ product.name }}</h4>
+    <h4 nz-typography class="sm:text-nowrap" id="productTitle" class="dark:text-white!">{{ product.name }}</h4>
     <div class="flex gap-2 items-baseline">
-      <h4 nz-typography class="sm:text-nowrap font-bold" id="currentPrice">
+      <h4 nz-typography class="sm:text-nowrap font-bold dark:text-white!" id="currentPrice">
         {{ _productsService.formatPrice(product!.price) }}
       </h4>
       <span
         *ngIf="product.originalPrice !== product.price"
         nz-typography
         nzType="secondary"
-        class="text-sm text-muted-foreground line-through sm:text-nowrap tracking-tight"
+        class="text-sm text-[#808080]! line-through sm:text-nowrap tracking-tight"
         id="originalPrice"
         >{{ _productsService.formatPrice(product!.originalPrice) }}</span
       >

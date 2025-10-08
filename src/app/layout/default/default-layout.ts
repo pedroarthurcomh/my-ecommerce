@@ -18,6 +18,7 @@ import {
 import { NzTypographyComponent } from 'ng-zorro-antd/typography';
 import { CartService } from 'src/app/services/cart-service';
 import { FavoritesService } from 'src/app/services/favorites-service';
+import { ThemeService } from 'src/app/services/theme-service';
 
 @Component({
   selector: 'app-default-layout',
@@ -45,6 +46,7 @@ export class DefaultLayout implements OnInit {
 
   _cartService = inject(CartService);
   _favoritesService = inject(FavoritesService);
+  public _themeService = inject(ThemeService);
 
   public cartQuantity = computed(() => {
     return this._cartService._cartItems().length;
@@ -52,7 +54,8 @@ export class DefaultLayout implements OnInit {
 
   isDarkTheme = false;
 
-  switchTheme(): void {
+  toggleTheme(): void {
+    this._themeService.toggleTheme()
     this.isDarkTheme = !this.isDarkTheme;
   }
 

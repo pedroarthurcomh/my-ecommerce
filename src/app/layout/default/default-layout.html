@@ -1,54 +1,60 @@
 <header
-  class="sticky flex flex-col md:flex-row top-0 z-50 shadow-sm flex items-center gap-3 py-4 md:h-[65px] md:p-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+  class="sticky flex flex-col dark:bg-zinc-900 dark:border-b dark:border-zinc-800 md:flex-row top-0 z-50 shadow-sm flex items-center gap-3 py-4 md:h-[65px] md:p-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
 >
   <div class="flex mx-auto items-center justify-between gap-4 max-w-4/6 w-full">
     <a routerLink="/" class="text-decoration-none w-fit">
       <div class="flex items-center gap-2">
-        <div class="logo flex items-center justify-center bg-slate-900 w-10 h-10 rounded-lg ml-4">
-          <span class="text-lg text-white font-bold">E</span>
+        <div
+          class="logo flex items-center justify-center bg-slate-900 dark:bg-gray-100 w-10 h-10 rounded-lg ml-4"
+        >
+          <span class="text-lg text-white dark:text-zinc-950 font-bold">E</span>
         </div>
-        <span class="hidden sm:inline-block text-xl font-bold text-nowrap">E-commerce</span>
+        <span class="hidden sm:inline-block text-xl font-bold text-nowrap dark:text-white"
+          >E-commerce</span
+        >
       </div>
     </a>
 
     <div class="hidden md:flex input-group relative max-w-[575px] w-full items-center">
       <lucide-angular
         [img]="search"
-        class="absolute top-1 left-1.5 w-4 text-gray-500"
+        class="absolute top-1 left-1.5 w-4 text-gray-500 dark:text-zinc-500"
       ></lucide-angular>
       <input
         type="text"
         placeholder="Buscar produtos, categorias..."
-        class="w-full h-10 rounded-lg bg-gray-50/40 border-1 border-gray-300 px-10 outline-none placeholder:text-gray-500"
-      />
+        class="w-full h-10 rounded-lg bg-gray-50/40 dark:bg-zinc-800 border-1 border-gray-300 dark:border-zinc-700 px-10 outline-none placeholder:text-gray-500 dark:placeholder:text-zinc-600 text-black dark:text-white!"
+        />
     </div>
 
     <div class="flex items-center">
       <button
-        (click)="switchTheme()"
-        class="group hidden sm:inline-block py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100 transition"
+        (click)="_themeService.toggleTheme()"
+        class="group hidden sm:inline-block py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-800 transition"
       >
         <lucide-angular
-          [img]="isDarkTheme ? sun : moon"
-          class="w-4 group-hover:w-5 transition-all duration-300"
+          [img]="_themeService.isDarkMode() ? sun : moon"
+          class="w-4 dark:text-white group-hover:w-5 transition-all duration-300"
         ></lucide-angular>
       </button>
       <a [routerLink]="'favorites'">
-        <button class="group py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100 transition">
+        <button
+          class="group py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-800 transition"
+        >
           <lucide-angular
             [img]="heart"
-            class="w-4 group-hover:w-5 transition-all duration-300"
+            class="w-4 dark:text-white group-hover:w-5 transition-all duration-300"
           ></lucide-angular>
         </button>
       </a>
       <nz-badge [nzCount]="cartQuantity()" [nzOffset]="[-2, 8]" nzSize="default">
         <a [routerLink]="'cart'">
           <button
-            class="inline-block group py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100 transition vertical-align-middle"
+            class="inline-block group py-2 px-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-800 transition vertical-align-middle"
           >
             <lucide-angular
               [img]="cart"
-              class="w-4 group-hover:w-5 transition-all duration-300"
+              class="w-4 dark:text-white group-hover:w-5 transition-all duration-300"
             ></lucide-angular>
           </button>
         </a>
@@ -59,82 +65,82 @@
   <div class="flex md:hidden input-group relative max-w-4/6 w-full items-center px-4">
     <lucide-angular
       [img]="search"
-      class="absolute top-1 left-3.5 w-4 text-gray-500"
+      class="absolute top-1 left-3.5 w-4 text-gray-500 dark:text-zinc-500"
     ></lucide-angular>
     <input
       type="text"
       placeholder="Buscar produtos, categorias..."
-      class="w-full h-10 rounded-lg bg-gray-50 border-1 border-gray-300 px-10 outline-none"
+      class="w-full h-10 rounded-lg bg-gray-50/40 dark:bg-zinc-800 border-1 border-gray-300 dark:border-zinc-700 px-10 outline-none placeholder:text-gray-500 dark:placeholder:text-zinc-600 text-black dark:text-white!"
     />
   </div>
 </header>
 
-<div class="container-fluid main-container-fluid mx-auto">
-  <main class="main-router-outlet w-full">
+<div class="container-fluid main-container-fluid mx-auto dark:bg-zinc-900">
+  <main class="main-router-outlet w-full h-full dark:bg-zinc-900">
     <router-outlet></router-outlet>
   </main>
 </div>
 
-<footer class="container-fluid bg-gray-100 border border-gray-200 h-fit">
+<footer class="container-fluid bg-gray-100 dark:bg-zinc-800 border-t border-gray-200 dark:border-zinc-700 h-fit">
   <div
     class="flex flex-col md:flex-row mx-auto justify-between md:items-baseline gap-4 max-w-4/6 w-full pt-10"
   >
     <div class="flex flex-col gap-2">
       <a routerLink="/" class="text-decoration-none w-fit">
         <div class="flex items-center gap-2">
-          <div class="logo flex items-center justify-center bg-slate-900 w-10 h-10 rounded-lg">
-            <span class="text-lg text-white font-bold">E</span>
+          <div class="logo flex items-center justify-center bg-slate-900 dark:bg-gray-100 w-10 h-10 rounded-lg">
+            <span class="text-lg text-white dark:text-zinc-950 font-bold">E</span>
           </div>
-          <span class="sm:inline-block text-xl font-bold text-nowrap">E-commerce</span>
+          <span class="sm:inline-block text-xl font-bold text-nowrap dark:text-white">E-commerce</span>
         </div>
       </a>
-      <p nz-typography nzType="secondary">Modern, responsive e-commerce for niche products.</p>
+      <p nz-typography nzType="secondary" class="dark:text-[#808080]!">Modern, responsive e-commerce for niche products.</p>
     </div>
 
     <div class="flex flex-col gap-2">
-      <h4 nz-typography>Shop</h4>
+      <h4 nz-typography class="dark:text-white!">Shop</h4>
       <ul class="list-style-none">
         <li>
-          <a routerLink="/" class="text-base">Camisetas</a>
+          <a routerLink="/" class="text-base hover:text-black! dark:hover:text-white!">Camisetas</a>
         </li>
         <li>
-          <a routerLink="/" class="text-base">Canecas</a>
+          <a routerLink="/" class="text-base hover:text-black! dark:hover:text-white!">Canecas</a>
         </li>
         <li>
-          <a routerLink="/" class="text-base">Acessórios</a>
+          <a routerLink="/" class="text-base hover:text-black! dark:hover:text-white!">Acessórios</a>
         </li>
         <li>
-          <a routerLink="/" class="text-base">Todos os Produtos</a>
+          <a routerLink="/" class="text-base hover:text-black! dark:hover:text-white!">Todos os Produtos</a>
         </li>
       </ul>
     </div>
 
     <div class="flex flex-col gap-2">
-      <h4 nz-typography>Sobre nós</h4>
+      <h4 nz-typography class="dark:text-white!">Sobre nós</h4>
       <ul class="list-style-none">
         <li>
-          <a routerLink="/" class="text-base">Nossa História</a>
+          <a routerLink="/" class="text-base hover:text-black! dark:hover:text-white!">Nossa História</a>
         </li>
         <li>
-          <a routerLink="/" class="text-base">Carreiras</a>
+          <a routerLink="/" class="text-base hover:text-black! dark:hover:text-white!">Carreiras</a>
         </li>
       </ul>
     </div>
 
     <div class="flex flex-col gap-2">
-      <h4 nz-typography>Suporte</h4>
+      <h4 nz-typography class="dark:text-white!">Suporte</h4>
       <ul class="list-style-none">
         <li>
-          <a routerLink="/" class="text-base">Contato</a>
+          <a routerLink="/" class="text-base hover:text-black! dark:hover:text-white!">Contato</a>
         </li>
         <li>
-          <a routerLink="/" class="text-base">FAQ</a>
+          <a routerLink="/" class="text-base hover:text-black! dark:hover:text-white!">FAQ</a>
         </li>
         <li>
-          <a routerLink="/" class="text-base">Frete</a>
+          <a routerLink="/" class="text-base hover:text-black! dark:hover:text-white!">Frete</a>
         </li>
         <li>
-          <a routerLink="/" class="text-base">Termos de Uso</a>
+          <a routerLink="/" class="text-base hover:text-black! dark:hover:text-white!">Termos de Uso</a>
         </li>
       </ul>
     </div>
@@ -144,7 +150,7 @@
   <div
     class="flex flex-col md:flex-row justify-between gap-2 max-w-4/6 w-full items-center mb-8 mx-auto"
   >
-    <p nz-typography nzType="secondary" class="text-sm text-center py-4">
+    <p nz-typography nzType="secondary" class="text-sm text-center py-4 dark:text-[#808080]!">
       © 2025 E-commerce. Todos os direitos reservados.
     </p>
     <div class="flex gap-1">
@@ -156,7 +162,7 @@
       >
         <lucide-angular
           [img]="linkedin"
-          class="w-8 text-gray-500 transition-all duration-300 hover:text-black"
+          class="w-8 text-[#808080] transition-all duration-300 hover:text-black dark:hover:text-white!"
         ></lucide-angular>
       </a>
       <a
@@ -167,7 +173,7 @@
       >
         <lucide-angular
           [img]="github"
-          class="w-8 text-gray-500 transition-all duration-300 hover:text-black"
+          class="w-8 text-[#808080] transition-all duration-300 hover:text-black dark:hover:text-white!"
         ></lucide-angular>
       </a>
       <a
@@ -178,7 +184,7 @@
       >
         <lucide-angular
           [img]="mail"
-          class="w-8 text-gray-500 transition-all duration-300 hover:text-black"
+          class="w-8 text-[#808080] transition-all duration-300 hover:text-black dark:hover:text-white!"
         ></lucide-angular>
       </a>
     </div>
