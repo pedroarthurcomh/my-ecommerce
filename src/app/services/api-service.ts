@@ -10,15 +10,15 @@ import { environment } from 'src/environments/environment';
 })
 export class ApiService {
   private readonly httpClient = inject(HttpClient);
-  private readonly API_URL: string = environment.API_URL;
+  private readonly PRODUCT_API_URL: string = `${environment.API_URL}/products`;
 
   getProductsByCategory(category?: eProductCategories): Observable<iProduct[]> {
-    if (category === 'all') return this.httpClient.get<iProduct[]>(`${this.API_URL}`);
+    if (category === 'all') return this.httpClient.get<iProduct[]>(`${this.PRODUCT_API_URL}`);
 
-    return this.httpClient.get<iProduct[]>(`${this.API_URL}?category=${category}`);
+    return this.httpClient.get<iProduct[]>(`${this.PRODUCT_API_URL}?category=${category}`);
   }
 
   getProductById(id: string): Observable<iProduct> {
-    return this.httpClient.get<iProduct>(`${this.API_URL}/${id}`);
+    return this.httpClient.get<iProduct>(`${this.PRODUCT_API_URL}/${id}`);
   }
 }

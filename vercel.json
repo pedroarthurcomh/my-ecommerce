@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/api/products",
-      "destination": "/api/products/index.json"
+      "source": "/api/products/:path*",
+      "destination": "/api/products"
     }
   ]
 }
