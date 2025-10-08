@@ -13,12 +13,12 @@ export class ApiService {
   private readonly API_URL: string = environment.API_URL;
 
   getProductsByCategory(category?: eProductCategories): Observable<iProduct[]> {
-    if (category === 'all') return this.httpClient.get<iProduct[]>(`${this.API_URL}/products`);
+    if (category === 'all') return this.httpClient.get<iProduct[]>(`${this.API_URL}`);
 
-    return this.httpClient.get<iProduct[]>(`${this.API_URL}/products?category=${category}`);
+    return this.httpClient.get<iProduct[]>(`${this.API_URL}?category=${category}`);
   }
 
   getProductById(id: string): Observable<iProduct> {
-    return this.httpClient.get<iProduct>(`${this.API_URL}/products/${id}`);
+    return this.httpClient.get<iProduct>(`${this.API_URL}/${id}`);
   }
 }
