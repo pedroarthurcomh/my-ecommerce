@@ -12,6 +12,7 @@ import pt from '@angular/common/locales/pt';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
+import { provideNgxSkeletonLoader } from 'ngx-skeleton-loader';
 
 registerLocaleData(pt);
 
@@ -29,6 +30,11 @@ export const appConfig: ApplicationConfig = {
     provideNzI18n(pt_BR),
     provideAnimationsAsync(),
     provideHttpClient(),
-    provideEnvironmentNgxMask()
+    provideEnvironmentNgxMask(),
+    provideNgxSkeletonLoader({
+      theme: {
+        extendsFromRoot: true
+      }
+    })
   ],
 };

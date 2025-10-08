@@ -1,7 +1,11 @@
 <main class="container-fluid flex flex-col items-center justify-center">
-  <section class="hero-container h-[750px] md:h-[500px] bg-gray-300 dark:bg-linear-to-r from-zinc-950/60 to-zinc-200 w-full flex items-center">
+  <section
+    class="hero-container h-[750px] md:h-[500px] bg-gray-300 dark:bg-linear-to-r from-zinc-950/60 to-zinc-200 w-full flex items-center"
+  >
     <div class="w-full mx-auto max-w-4/6 py-8">
-      <p class="mb-4 inline-block text-sm font-semibold uppercase tracking-wider text-white dark:text-white">
+      <p
+        class="mb-4 inline-block text-sm font-semibold uppercase tracking-wider text-white dark:text-white"
+      >
         NOVA COLEÇÃO
       </p>
       <h1
@@ -62,22 +66,72 @@
       </div>
 
       <div class="my-8 w-full mb-12 flex justify-center">
-        <div
-          class="grid w-full gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-stretch"
-        >
-          <!-- PRODUCTS LIST -->
-          <me-product-card
-            *ngFor="let product of products$ | async"
-            [product]="product"
-            [isFavorite]="isFavorite(product.id)"
-            [id]="product.id"
-            [routerLink]="['/product', product.id]"
-            nz-col
-            nzFlex="0 1 324px"
-            class="w-min-[214px] w-full"
-          />
-          <!-- END PRODUCTS LIST -->
-        </div>
+        <ng-container *ngIf="products$ | async as products; else skeleton">
+          <div
+            class="grid w-full gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-stretch"
+          >
+            <!-- PRODUCTS LIST -->
+            <me-product-card
+              *ngFor="let product of products"
+              [product]="product"
+              [isFavorite]="isFavorite(product.id)"
+              [id]="product.id"
+              [routerLink]="['/product', product.id]"
+              nz-col
+              nzFlex="0 1 324px"
+              class="w-min-[214px] w-full"
+            />
+            <!-- END PRODUCTS LIST -->
+          </div>
+        </ng-container>
+        <ng-template #skeleton>
+          <div
+            class="grid w-full gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-stretch"
+          >
+            <div
+              *ngFor="let item of skeletonItems"
+              class="product-card group gutter-row p-4 rounded-lg cursor-pointer w-full min-w-[214px]"
+            >
+              <div class="aspect-square w-full relative">
+                <ngx-skeleton-loader
+                  count="1"
+                  [animation]="_themeService.isDarkMode() ? 'pulse-dark' : 'pulse'"
+                  appearance="square"
+                  class="img-skeleton rounded-lg"
+                />
+              </div>
+
+              <div class="product-info w-full mt-8">
+                <ngx-skeleton-loader
+                  count="1"
+                  [animation]="_themeService.isDarkMode() ? 'pulse-dark' : 'pulse'"
+                  appearance="line"
+                  [theme]="{
+                    width: '88px',
+                    'margin-bottom': '0.5rem',
+                  }"
+                />
+                <ngx-skeleton-loader
+                  count="1"
+                  [animation]="_themeService.isDarkMode() ? 'pulse-dark' : 'pulse'"
+                  appearance="line"
+                  [theme]="{
+                    width: '90%',
+                  }"
+                />
+                <ngx-skeleton-loader
+                  count="1"
+                  [animation]="_themeService.isDarkMode() ? 'pulse-dark' : 'pulse'"
+                  appearance="line"
+                  [theme]="{
+                    width: '40%',
+                    'margin-top': '0.25rem',
+                  }"
+                />
+              </div>
+            </div>
+          </div>
+        </ng-template>
       </div>
     </div>
   </section>

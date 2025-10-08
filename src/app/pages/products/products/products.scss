@@ -46,3 +46,14 @@ div.headline {
     font-weight: 600 !important;
   }
 }
+
+.img-skeleton {
+  ::ng-deep .skeleton-loader {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+::ng-deep .skeleton-loader {
+  cursor: pointer !important;
+}

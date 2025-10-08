@@ -15,6 +15,8 @@ import { ProductsService } from 'src/app/services/products-service';
 import { NotificationService } from 'src/app/services/notification-service';
 import { ProductCard } from '@shared/components/product-card/product-card';
 import { FavoritesService } from 'src/app/services/favorites-service';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ThemeService } from 'src/app/services/theme-service';
 
 @Component({
   selector: 'app-products',
@@ -28,6 +30,7 @@ import { FavoritesService } from 'src/app/services/favorites-service';
     CommonModule,
     AsyncPipe,
     ProductCard,
+    NgxSkeletonLoaderModule
   ],
   templateUrl: './products.html',
   styleUrl: './products.scss',
@@ -41,11 +44,13 @@ export class Products implements OnInit {
   currentCategory: eProductCategories = eProductCategories.ALL;
   public ProductCategoryLabels = ProductCategoryLabels;
   public filterOptions: eProductCategories[] = [];
+  public skeletonItems = new Array(4);
 
   private _apiService = inject(ApiService);
   _favoritesService = inject(FavoritesService);
   _productsService = inject(ProductsService);
   _notificationService = inject(NotificationService);
+  _themeService = inject(ThemeService);
 
   isFavoriteChecker = this._favoritesService.isFavoriteComputed();
 
