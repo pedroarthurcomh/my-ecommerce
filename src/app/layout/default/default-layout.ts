@@ -55,7 +55,7 @@ export class DefaultLayout implements OnInit {
   isDarkTheme = false;
 
   toggleTheme(): void {
-    this._themeService.toggleTheme()
+    this._themeService.toggleTheme();
     this.isDarkTheme = !this.isDarkTheme;
   }
 

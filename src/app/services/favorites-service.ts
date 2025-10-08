@@ -8,8 +8,8 @@ import { iProduct } from '../interfaces/product-interface';
 export class FavoritesService {
   public _favoriteItems = signal<iProduct[]>([]);
   public isFavoriteComputed = computed(() => (id: string) => {
-    return this._favoriteItems().some(item => item.id === id)
-  })
+    return this._favoriteItems().some((item) => item.id === id);
+  });
 
   public _notificationService = inject(NotificationService);
 

@@ -22,7 +22,7 @@ export const routes: Routes = [
       },
       {
         path: 'favorites',
-        component: Favorites
+        component: Favorites,
       },
       {
         path: 'cart',

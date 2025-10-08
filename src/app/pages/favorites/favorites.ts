@@ -9,13 +9,7 @@ import { ProductCard } from '@shared/components/product-card/product-card';
 
 @Component({
   selector: 'app-favorites',
-  imports: [
-    LucideAngularModule, 
-    NzTypographyModule, 
-    RouterLink, 
-    CommonModule,
-    ProductCard
-  ],
+  imports: [LucideAngularModule, NzTypographyModule, RouterLink, CommonModule, ProductCard],
   templateUrl: './favorites.html',
   styleUrl: './favorites.scss',
 })

@@ -10,6 +10,6 @@ export const productDetailResolver: ResolveFn<iProduct | null> = (route, state) 
   if (!productId) {
     return null;
   }
-  
+
   return apiService.getProductById(productId);
 };

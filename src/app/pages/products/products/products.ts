@@ -30,7 +30,7 @@ import { ThemeService } from 'src/app/services/theme-service';
     CommonModule,
     AsyncPipe,
     ProductCard,
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
   ],
   templateUrl: './products.html',
   styleUrl: './products.scss',

@@ -33,8 +33,8 @@ export const appConfig: ApplicationConfig = {
     provideEnvironmentNgxMask(),
     provideNgxSkeletonLoader({
       theme: {
-        extendsFromRoot: true
-      }
-    })
+        extendsFromRoot: true,
+      },
+    }),
   ],
 };

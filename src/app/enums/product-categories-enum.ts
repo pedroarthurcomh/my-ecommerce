@@ -2,7 +2,7 @@ export enum eProductCategories {
   ALL = 'all',
   TSHIRTS = 't-shirts',
   MUGS = 'mugs',
-  ACCESSORIES = 'accessories'
+  ACCESSORIES = 'accessories',
 }
 
 export const ProductCategoryLabels: Readonly<Record<eProductCategories, string>> = Object.freeze({
@@ -11,4 +11,3 @@ export const ProductCategoryLabels: Readonly<Record<eProductCategories, string>>
   [eProductCategories.MUGS]: 'Canecas',
   [eProductCategories.ACCESSORIES]: 'Acessórios',
 });
-

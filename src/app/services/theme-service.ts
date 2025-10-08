@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { effect, Inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThemeService {
   isDarkMode = signal<boolean>(false);
@@ -32,8 +32,7 @@ export class ThemeService {
     }
   }
 
-  // Método para alternar o tema
   toggleTheme() {
-    this.isDarkMode.update(value => !value);
+    this.isDarkMode.update((value) => !value);
   }
 }
