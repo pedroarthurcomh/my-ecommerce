@@ -1,0 +1,91 @@
+<main class="container-fluid flex flex-col items-center justify-center">
+  <section
+    class="hero-container h-[750px] md:h-[500px] bg-gray-300 dark:bg-linear-to-r from-zinc-950/60 to-zinc-200 w-full flex items-center">
+    <div class="w-full mx-auto max-w-4/6 py-8">
+      <p class="mb-4 inline-block text-sm font-semibold uppercase tracking-wider text-white dark:text-white">
+        NOVA COLEÇÃO
+      </p>
+      <h1 nz-typography
+        class="hero-title mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl dark:text-white!">
+        Descubra Seu Estilo <br />Com a E-commerce
+      </h1>
+      <span nz-typography nzType="secondary" class="hero-description dark:text-zinc-300!">Qualidade premium, design
+        moderno e entrega rápida. Até 20% OFF <br />na primeira
+        compra.</span>
+
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 mt-4">
+        <a class="text-decoration-none">
+          <button (click)="scrollToSection(collection)"
+            class="group py-2 px-6 bg-zinc-800 dark:bg-white rounded-lg w-full sm:w-fit cursor-pointer mt-4 flex gap-2 items-center transition-all duration-300 hover:bg-gray-950 dark:hover:bg-gray-200">
+            <span class="text-white dark:text-zinc-950 font-bold text-lg">Explorar Coleção</span>
+            <lucide-angular [img]="moveRight" [size]="16"
+              class="my-icon text-white dark:text-zinc-950 transition-transform group-hover:translate-x-1"></lucide-angular>
+          </button>
+        </a>
+        <a routerLink="/cart" class="text-decoration-none">
+          <button
+            class="group py-2 px-6 bg-white dark:bg-zinc-800 rounded-lg w-full sm:w-fit cursor-pointer mt-4 flex gap-2 items-center transition-all duration-200 hover:bg-gray-200 dark:hover:bg-gray-950">
+            <span class="text-zinc-950 dark:text-white font-bold text-lg">Meu Carrinho</span>
+          </button>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white dark:bg-zinc-900 w-full py-12">
+    <div #collection class="max-w-4/6 mx-auto flex flex-col gap-2">
+      <div class="headline">
+        <h2 nz-typography class="dark:text-white!">Nossos Produtos</h2>
+        <span nz-typography nzType="secondary" class="dark:text-[#808080]!">Explore nossa coleção exclusiva de produtos
+          premium</span>
+      </div>
+      <div class="category-filter mt-4">
+        <nz-radio-group [(ngModel)]="currentCategory" class="dark:checked:bg-white!">
+          <label class="dark:bg-zinc-900! dark:text-white! dark:border-[#808080]! dark:checked:bg-white!"
+            (click)="handleCategoryChange(category)" *ngFor="let category of filterOptions" nz-radio-button
+            [nzValue]="ProductCategoryLabels[category]">{{ ProductCategoryLabels[category] }}</label>
+        </nz-radio-group>
+      </div>
+
+      <div class="my-8 w-full mb-12 flex justify-center">
+        <ng-container *ngIf="products$ | async as products; else skeleton">
+          <div class="grid w-full gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-stretch">
+            <!-- PRODUCTS LIST -->
+            <me-product-card *ngFor="let product of products" [product]="product" [isFavorite]="isFavorite(product.id)"
+              [id]="product.id" [routerLink]="['/product', product.id]" nz-col nzFlex="0 1 324px"
+              class="w-min-[214px] w-full" />
+            <!-- END PRODUCTS LIST -->
+          </div>
+        </ng-container>
+        <ng-template #skeleton>
+          <div class="grid w-full gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-stretch">
+            <div *ngFor="let item of skeletonItems"
+              class="product-card group gutter-row p-4 rounded-lg cursor-pointer w-full min-w-[214px]">
+              <div class="aspect-square w-full relative">
+                <ngx-skeleton-loader count="1" [animation]="_themeService.isDarkMode() ? 'pulse-dark' : 'pulse'"
+                  appearance="square" class="img-skeleton rounded-lg" />
+              </div>
+
+              <div class="product-info w-full mt-8">
+                <ngx-skeleton-loader count="1" [animation]="_themeService.isDarkMode() ? 'pulse-dark' : 'pulse'"
+                  appearance="line" [theme]="{
+                    width: '88px',
+                    'margin-bottom': '0.5rem',
+                  }" />
+                <ngx-skeleton-loader count="1" [animation]="_themeService.isDarkMode() ? 'pulse-dark' : 'pulse'"
+                  appearance="line" [theme]="{
+                    width: '90%',
+                  }" />
+                <ngx-skeleton-loader count="1" [animation]="_themeService.isDarkMode() ? 'pulse-dark' : 'pulse'"
+                  appearance="line" [theme]="{
+                    width: '40%',
+                    'margin-top': '0.25rem',
+                  }" />
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,109 @@
+<main class="container-fluid flex flex-col items-center justify-center min-h-[calc(100vh-373px)] dark:bg-zinc-900">
+  <section class="h-full w-full flex items-center">
+    <div class="flex flex-col max-w-4/6 w-full flex-col gap-4 my-8 mx-auto">
+      <div class="breadcrumb">
+        <nz-breadcrumb>
+          <nz-breadcrumb-item><a [routerLink]="['/']"
+              class="text-[#808080]! hover:text-black! dark:hover:text-white!">Home</a></nz-breadcrumb-item>
+          <nz-breadcrumb-item class="text-[#808080]!">{{
+            ProductCategoryLabels[product!.category]
+            }}</nz-breadcrumb-item>
+          <nz-breadcrumb-item class="dark:text-white!">{{ product?.name }}</nz-breadcrumb-item>
+        </nz-breadcrumb>
+      </div>
+
+      <div class="flex flex-col lg:flex-row w-full gap-8">
+        <div class="product-image w-full aspect-square overflow-hidden rounded-xl bg-muted">
+          <img nz-image [nzSrc]="product!.image_url" [nzFallback]="_productsService.imageFallback" [alt]="product?.name"
+            class="h-full w-full object-cover" />
+        </div>
+
+        <div class="product-info lg:max-w-[50%] w-full">
+          <div class="w-full">
+            <span class="mb-2 text-sm font-semibold uppercase tracking-wider text-[#808080]!">{{
+              ProductCategoryLabels[product!.category]
+              }}</span>
+            <h1 nz-typography class="product-name lg:text-nowrap dark:text-white!">
+              {{ product?.name }}
+            </h1>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4 text-nowrap">
+              <h2 nz-typography class="product-price dark:text-white!">
+                {{ _productsService.formatPrice(product!.price) }}
+              </h2>
+              @if (product?.originalPrice !== product?.price) {
+              <span nz-typography nzType="secondary"
+                class="product-original-price text-lg line-through text-[#808080]!">{{
+                _productsService.formatPrice(product!.originalPrice) }}</span>
+              <div class="badge flex items-center sm:justify-center">
+                <span class="flex items-center justify-center h-7 px-3 rounded-xl bg-red-400 text-white font-bold">-{{
+                  _productsService.calculateDiscount(product!.originalPrice, product!.price)
+                  }}% OFF</span>
+              </div>
+              }
+            </div>
+
+            <div class="flex flex-col">
+              <label class="my-2 font-bold dark:text-white">Tamanho</label>
+              <nz-radio-group [(ngModel)]="size" nzSize="large">
+                <label nz-radio-button nzValue="P" (click)="selectSize('P')">P</label>
+                <label nz-radio-button nzValue="M" (click)="selectSize('M')">M</label>
+                <label nz-radio-button nzValue="G" (click)="selectSize('G')">G</label>
+                <label nz-radio-button nzValue="GG" (click)="selectSize('GG')">GG</label>
+              </nz-radio-group>
+            </div>
+
+            <div class="flex flex-col pt-6">
+              <label class="my-2 font-bold dark:text-white">Cor</label>
+              <div class="input-group flex gap-4">
+                <div *ngFor="let color of product?.colors" (click)="selectColor(color)"
+                  [style]="{ 'background-color': color }" [ngClass]="{
+                    'ring-2 ring-primary ring-offset-2': isSelectedColorEquals(color, currentColor),
+                  }" class="h-10 w-10 rounded-full border border-gray-300 transition-all cursor-pointer"></div>
+              </div>
+            </div>
+
+            <div class="flex flex-col pt-6">
+              <label class="my-2 font-bold dark:text-white">Quantidade</label>
+              <!-- QUANTITY INPUT -->
+              <div class="flex items-center gap-4">
+                <div class="flex items-center rounded-lg border border-[#808080]">
+                  <button (click)="updateQuantity('-')"
+                    class="inline-flex items-center justify-center h-10 w-10 gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-100 dark:hover:bg-zinc-800 cursor-pointer"
+                    [disabled]="quantity === 1">
+                    <lucide-angular [img]="minus" [size]="16"
+                      class="text-black dark:text-white"></lucide-angular></button><span
+                    class="w-10 text-center text-sm font-medium dark:text-white">{{
+                    quantity
+                    }}</span>
+                  <button (click)="updateQuantity('+')"
+                    class="inline-flex items-center justify-center h-10 w-10 gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-100 dark:hover:bg-zinc-800 cursor-pointer">
+                    <lucide-angular [img]="plus" [size]="16" class="text-black dark:text-white"></lucide-angular>
+                  </button>
+                </div>
+              </div>
+              <!-- END QUANTITY INPUT -->
+            </div>
+
+            <div class="flex flex-col pt-6">
+              <button (click)="submit()"
+                class="flex justify-center items-center w-full p-3 bg-gray-600 dark:bg-white rounded-lg gap-4 cursor-pointer hover:bg-gray-950 dark:hover:bg-zinc-300 transition-all duration-200">
+                <lucide-angular [img]="shoppingCart" [size]="18"
+                  class="text-white dark:text-black transition-transform group-hover:translate-x-1"></lucide-angular>
+                <span class="text-white dark:text-black font-bold text-lg">ADICIONAR AO CARRINHO</span>
+              </button>
+            </div>
+
+            <nz-divider></nz-divider>
+
+            <div class="product-description">
+              <span class="text-lg font-bold dark:text-white">Descrição</span>
+              <p class="text-[#808080] text-base pt-2">
+                {{ product?.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
